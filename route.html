@@ -1,0 +1,40 @@
+<script src="https://fb.me/react-0.14.2.js"></script>
+<script src="https://fb.me/react-dom-0.14.2.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-router/1.0.0-rc3/ReactRouter.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.33/browser-polyfill.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.33/browser.min.js"></script>
+<div id="mount-point"></div>
+<script type="text/babel">void function() { "use strict"
+
+var {Router, Route, IndexRoute, Link} = ReactRouter
+
+var App = ({children}) => <div>
+  <h1>App</h1>
+  <Link to="/games">Games</Link> | <Link to="/games/42">Game 42</Link>
+  {children}
+</div>
+
+var Homepage = ({children}) => <div>
+  <h2>Homepage</h2>
+  {children}
+</div>
+
+var Games = ({children}) => <div>
+  <h2>Games</h2>
+  {children}
+</div>
+
+var Game = ({params}) => <div>
+  <h3>Game {params.id}</h3>
+</div>
+
+ReactDOM.render(<Router>
+  <Route path="/" component={App}>
+    <IndexRoute component={Homepage} />
+    <Route path="games" component={Games}>
+      <Route path=":id" component={Game}/>
+    </Route>
+  </Route>
+</Router>, document.getElementById('mount-point'))
+
+}()</script>
